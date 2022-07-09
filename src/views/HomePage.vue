@@ -2,28 +2,38 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Blank</ion-title>
+        <ion-title>Ma météo</ion-title>
       </ion-toolbar>
     </ion-header>
-    
+   
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
+          <ion-title size="large">Ma Météo</ion-title>
         </ion-toolbar>
+        
+
       </ion-header>
-    
+     <ion-content>
+      <p style="text-align:center">Lundi, 10 juin 2022</p>
+      <ion-button @click="openModal">Ville</ion-button>
+    </ion-content>
       <div id="container">
         <strong>Ready to create an app?</strong>
         <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
       </div>
+      
     </ion-content>
+    
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { setupConfig } from '@ionic/core';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, modalController } from '@ionic/vue';
 import { defineComponent } from 'vue';
+
+import Modal from "@/components/modal.vue";
 
 export default defineComponent({
   name: 'HomePage',
@@ -32,9 +42,22 @@ export default defineComponent({
     IonHeader,
     IonPage,
     IonTitle,
-    IonToolbar
-  }
+    IonToolbar,
+    IonButton,
+  },
+  setup(){
+    const openModal = async () => {
+      const modal = await modalController.create({
+        component: Modal, //Modal is name of the component to render inside ionic modal
+      });
+      return modal.present();
+    };
+
+    return { openModal };
+  },
 });
+
+
 </script>
 
 <style scoped>
