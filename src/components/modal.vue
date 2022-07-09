@@ -1,7 +1,7 @@
 <template>
   <ion-header>
     <ion-toolbar>
-      <ion-title>Modal</ion-title>
+      <ion-title>Ville</ion-title>
     </ion-toolbar>
   </ion-header>
   
@@ -23,7 +23,8 @@
             <ion-checkbox id="ville" @ionChange="onTermsChanged" :checked="canDismiss"></ion-checkbox>
     </ion-item>
    
-    <ion-button @click="closeModal">Close</ion-button>
+    <ion-button style="float: right;" @click="closeModal">Close</ion-button>
+    <ion-button style="float: right;" @click="makeSelection">Ok</ion-button>
   </ion-content>
 </template>
 
