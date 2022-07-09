@@ -1,17 +1,17 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true" style="background-color:aqua;">
-      <ion-toolbar>
+    <ion-header>
+      <ion-toolbar class="header-bgc">
         <ion-title>Ma météo</ion-title>
       </ion-toolbar>
     </ion-header>
    
-    <ion-content>
-      <ion-header collapse="condense">
+   
+      <!-- <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Ma Météo</ion-title>
+          <ion-title size="large">Ma Météfffo</ion-title>
         </ion-toolbar>
-         </ion-header>
+         </ion-header> -->
      
      <ion-content style="padding:0%">
       <p style="text-align:center">{{date}}</p>
@@ -31,7 +31,12 @@
     </ion-content>
       
       </ion-content>
-    </ion-content>
+    
+   
+      <ion-toolbar>
+      <ion-footer>Par Naoufel Gharsalli & JF Lessard</ion-footer>
+      </ion-toolbar>
+    
     
      
      
@@ -40,7 +45,7 @@
 
 <script lang="ts">
 import { setupConfig } from '@ionic/core';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, modalController } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonFooter, IonTitle, IonToolbar, IonImg, IonButton, modalController } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 import Modal from "@/components/modal.vue";
@@ -50,6 +55,7 @@ export default defineComponent({
   name: 'HomePage',
   components: {
     IonImg,
+    IonFooter,
     IonContent,
     IonHeader,
     IonPage,
@@ -110,7 +116,12 @@ function dateSetting(){
   font-size: 20px;
   line-height: 26px;
 }
-
+.headerbgc {
+  --background:var(--ion-color-primary);
+}
+ion-toolbar{
+  --background:var(--ion-color-primary);
+}
 #container p {
   font-size: 16px;
   line-height: 22px;
@@ -125,9 +136,9 @@ function dateSetting(){
   position: absolute;
   left: 0;
   right: 0;
-  width: 20%;
+  width: 35%;
   padding-bottom: 0%;
-  transform: translateX(200%);
+  transform: translateX(100%);
 }
 
 #container a {
