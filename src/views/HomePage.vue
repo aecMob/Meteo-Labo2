@@ -1,36 +1,39 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
+    <ion-header :translucent="true" style="background-color:aqua;">
       <ion-toolbar>
         <ion-title>Ma météo</ion-title>
       </ion-toolbar>
     </ion-header>
    
-    <ion-content :fullscreen="true">
+    <ion-content>
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">Ma Météo</ion-title>
         </ion-toolbar>
-        
-
-      </ion-header>
-     <ion-content>
+         </ion-header>
+     
+     <ion-content style="padding:0%">
       <p style="text-align:center">Lundi, 10 juin 2022</p>
       <ion-button @click="openModal">Ville</ion-button>
-    </ion-content>
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div>
-      
-    </ion-content>
     
+    
+    <ion-content>
+      <p style="text-align:center">Montreal</p>
+      <p style="text-align:center">Temp = 6deg Celsius</p>
+   
+    <ion-content text-center>
+    <ion-img :src="require('../assets/img/01d.svg')" class="centerImg"></ion-img>
+      </ion-content>
+    </ion-content>
+    </ion-content>
+     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
 import { setupConfig } from '@ionic/core';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, modalController } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonImg, IonButton, modalController } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 import Modal from "@/components/modal.vue";
@@ -38,6 +41,7 @@ import Modal from "@/components/modal.vue";
 export default defineComponent({
   name: 'HomePage',
   components: {
+    IonImg,
     IonContent,
     IonHeader,
     IonPage,
@@ -83,6 +87,15 @@ export default defineComponent({
   color: #8c8c8c;
   
   margin: 0;
+}
+.centerImg {
+   text-align: center;
+  
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 20%;
+  transform: translateX(200%);
 }
 
 #container a {
