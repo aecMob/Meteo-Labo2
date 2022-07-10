@@ -15,22 +15,31 @@
      
      <ion-content style="padding:0%">
       <p style="text-align:center">{{date}}</p>
-      <ion-button @click="openModal">Ville</ion-button>
+      
+     <ion-item>
+        <ion-label>Ville</ion-label>
+        <ion-select placeholder="Aucun Choix" v-model="ville" @change="store">
+          <ion-select-option value="Montreal">Montreal</ion-select-option>
+          <ion-select-option value="Laval">Laval</ion-select-option>
+          <ion-select-option value="Quebec">Quebec</ion-select-option>
+          <ion-select-option value="Position Actuelle">Position Actuelle</ion-select-option>
+          
+        </ion-select>
+      </ion-item>
     
     
-    <ion-content>
-      <p style="text-align:center">{{ville}}</p>
+      <p style="text-align:center">{{this.ville}}</p>
       <p style="text-align:center">{{temperature}}</p>
    
     <ion-content id="reduce">
     <ion-img :src="require('../assets/img/01d.svg')" class="centerImg"></ion-img>
     </ion-content>
-    <ion-content>
+    
     <p style="text-align:center">{{condition}}</p>
     </ion-content>
-    </ion-content>
+    
       
-      </ion-content>
+    
     
    
       <ion-toolbar>
@@ -45,11 +54,18 @@
 
 <script lang="ts">
 import { setupConfig } from '@ionic/core';
-import { IonContent, IonHeader, IonPage, IonFooter, IonTitle, IonToolbar, IonImg, IonButton, modalController } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonFooter, IonTitle, IonToolbar, IonImg, IonSelect, IonSelectOption, modalController } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 import Modal from "@/components/modal.vue";
 import { getOriginalVNodeTypeFromStub } from '@vue/test-utils/dist/stubs';
+import { tsConstructorType, tSIntersectionType } from '@babel/types';
+import { stringifyQuery } from 'vue-router';
+import { ref } from 'vue';
+
+var city: "Laval";
+
+
 
 export default defineComponent({
   name: 'HomePage',
@@ -61,27 +77,60 @@ export default defineComponent({
     IonPage,
     IonTitle,
     IonToolbar,
-    IonButton,
+    IonSelect,
+    IonSelectOption
+   
   },
-  data() {
+
+
+
+data() {
  return {
   date : dateSetting(),
-  ville: "Laval",
+  ville : "Laval",
   temperature: "6deg Celsius",
   condition : "Neige"
  }
  },
-  setup(){
-    
-    const openModal = async () => {
-      const modal = await modalController.create({
-        component: Modal, 
-      });
-      return modal.present();
-    };
+methods:{
+  store(event:any) {
+    const name = event.detail.value;
+    console.log("detail " + name);
+    this.ville = name;
+  }
+ 
+},
 
-    return { openModal };
-  },
+  //setup(){
+    
+  //   const formInfo = ref(null);
+  //   const openModal = async () => {
+  //     const modal = await modalController.create({
+  //       component: Modal, 
+  //       componentProps: {
+  //         parent : this,
+  //         propsData:{
+  //         villa:String
+  //         }
+  // }
+  //     });
+
+
+  //     modal.onDidDismiss().then((dataReturned)=>{
+  //     if(dataReturned !== null){
+  //      console.log(dataReturned.data);
+  //      city = dataReturned.data;
+  //      alert(city);
+              
+  //      }
+  //     })
+
+
+  //     return modal.present();
+  //   };
+
+   // return { openModal, formInfo };
+  //},
 });
 
 function dateSetting(){
