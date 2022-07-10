@@ -7,11 +7,6 @@
     </ion-header>
    
    
-      <!-- <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Ma Météfffo</ion-title>
-        </ion-toolbar>
-         </ion-header> -->
      
      <ion-content style="padding:0%">
       <p style="text-align:center">{{date}}</p>
@@ -38,23 +33,16 @@
     <p style="text-align:center">{{condition}}</p>
     </ion-content>
     
-      
-    
-    
-   
       <ion-toolbar>
       <ion-footer>Par Naoufel Gharsalli & JF Lessard</ion-footer>
       </ion-toolbar>
     
-    
-     
-     
   </ion-page>
 </template>
 
 <script lang="ts">
 import { setupConfig } from '@ionic/core';
-import { IonContent, IonHeader, IonPage, IonFooter, IonTitle, IonToolbar, IonImg, IonSelect, IonSelectOption, modalController } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonFooter, IonTitle, IonToolbar, IonImg, IonSelect, IonSelectOption } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 import Modal from "@/components/modal.vue";
@@ -62,10 +50,6 @@ import { getOriginalVNodeTypeFromStub } from '@vue/test-utils/dist/stubs';
 import { tsConstructorType, tSIntersectionType } from '@babel/types';
 import { stringifyQuery } from 'vue-router';
 import { ref } from 'vue';
-
-var city: "Laval";
-
-
 
 export default defineComponent({
   name: 'HomePage',
@@ -81,9 +65,6 @@ export default defineComponent({
     IonSelectOption
    
   },
-
-
-
 data() {
  return {
   date : dateSetting(),
@@ -101,36 +82,6 @@ methods:{
  
 },
 
-  //setup(){
-    
-  //   const formInfo = ref(null);
-  //   const openModal = async () => {
-  //     const modal = await modalController.create({
-  //       component: Modal, 
-  //       componentProps: {
-  //         parent : this,
-  //         propsData:{
-  //         villa:String
-  //         }
-  // }
-  //     });
-
-
-  //     modal.onDidDismiss().then((dataReturned)=>{
-  //     if(dataReturned !== null){
-  //      console.log(dataReturned.data);
-  //      city = dataReturned.data;
-  //      alert(city);
-              
-  //      }
-  //     })
-
-
-  //     return modal.present();
-  //   };
-
-   // return { openModal, formInfo };
-  //},
 });
 
 function dateSetting(){
