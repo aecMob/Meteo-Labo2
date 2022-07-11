@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import HomePage from '../views/HomePage.vue';
-import Meteo from '../views/Meteo.vue';
+import MeteoPage from '../views/Meteo.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -16,7 +16,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/meteo',
     name: 'ConditionActuelle',
-    component: Meteo
+    component: MeteoPage
   }
 ]
 

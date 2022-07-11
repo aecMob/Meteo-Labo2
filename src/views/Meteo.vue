@@ -12,26 +12,26 @@
         
         <ion-col><br>
             
-        <ion-title id="date" class="centre">{{ x }}</ion-title><br>
+        <ion-title id="date" class="centre">{{ dateDuJour }}</ion-title><br>
             <ion-item id="dropdown">
-                <ion-select class="stretch" placeholder="Choisissez un emdroit">
-                    <ion-select-option value="montreal">Montréal</ion-select-option>
-                    <ion-select-option value="laval">Laval</ion-select-option>
-                    <ion-select-option value="quebec">Québec</ion-select-option>
-                    <ion-select-option value="position">Ma position</ion-select-option>
+                <ion-select @ionChange="update($event)" class="stretch" placeholder="Choisissez un emdroit" v-model="ville">
+                    <ion-select-option value="Montréal">Montréal</ion-select-option>
+                    <ion-select-option value="Laval">Laval</ion-select-option>
+                    <ion-select-option value="Québec">Québec</ion-select-option>
+                    <ion-select-option value="Ma Position">Ma position</ion-select-option>
                 </ion-select>
                 <br>
             </ion-item>
         <ion-card>
             <ion-card-header>
-                <ion-card-subtitle id="ville" class="centre">Montréal</ion-card-subtitle>
-                <ion-card-title id="degres" class="centre">22°C</ion-card-title>
+                <ion-card-subtitle id="ville" class="centre">{{ weather?.name }}, {{ weather?.sys.country }}</ion-card-subtitle>
+                <ion-card-title id="degres" class="centre">{{arrondirTemperature(weather?.main.temp)}}°C</ion-card-title>
             </ion-card-header>
             <ion-card-content>
                  
-                  <ion-icon class="centre" src="/assets/icon/01d.svg"></ion-icon><br>                  
+                  <ion-icon :src="monIcon" class="centre"></ion-icon><br>                  
                 
-                <ion-text id="description" class="centre">Ensoleillé</ion-text>
+                <ion-text id="description" class="centre">{{weather?.weather[0].description }}</ion-text>
            </ion-card-content>        
         </ion-card>
         </ion-col>
@@ -51,16 +51,16 @@
 </template>
 
 <script lang="ts">
-import { creerDate } from '@/utilitaires/convertisseurs';
-import { computed, defineComponent } from 'vue'
+import { creerDate, arrondirTemperature, avoirIcon } from '@/utilitaires/convertisseurs';
+import { avoirMeteo } from '@/services/service-meteo';
+import { defineComponent } from 'vue'
 import { 
   IonPage,
   IonGrid,
   IonRow,
   IonCol,
   IonHeader,
-  IonContent,
-  IonList,
+  IonContent,  
   IonItem,
   IonSelect,
   IonSelectOption,
@@ -68,13 +68,14 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardSubtitle,
-  IonCardContent,
-  IonIcon,
-  IonThumbnail,
+  IonCardContent,  
   IonTitle, 
   IonToolbar,
-  IonFooter
+  IonFooter,
+onIonViewDidEnter,
+onIonViewWillEnter
 } from '@ionic/vue';
+import { RootObject } from '@/interfaces/meteo-model';
 
 export default defineComponent({
   name:'MeteoPage',  
@@ -85,7 +86,6 @@ export default defineComponent({
     IonCol,
     IonHeader,
     IonContent,
- 
     IonItem,
     IonSelect,
     IonSelectOption,
@@ -93,29 +93,49 @@ export default defineComponent({
     IonCardHeader,
     IonCardTitle,
     IonCardSubtitle,
-    IonCardContent,
-    
-    
+    IonCardContent,    
     IonTitle, 
     IonToolbar,
     IonFooter
   },
+  data() {
+    return { ville: "Montréal",
+             monIcon: ""                   
+    };
+  },
+methods: {
+    update(event: { target: { value: any; }; }){
+        console.log(" le binding choix" + event.target.value, this.ville, this.monIcon);
+        const { weather, avoirDonnees} = avoirMeteo();
+        avoirDonnees(this.ville);
+        this.monIcon = "/assets/icon/" + weather.value?.weather[0].icon + ".svg";
+	console.log(" le binding choix" + event.target.value, this.ville, this.monIcon);
+	}
+},
   setup () {
-    const x = creerDate();
-    return {
-        x,
-    }
-  }
+    
+    const dateDuJour = creerDate();
+    const { weather, avoirDonnees} = avoirMeteo();    
+     avoirDonnees("Montréal");
+    var monIcon:any = "";
+
+
+      return {
+        dateDuJour,
+        weather,
+        arrondirTemperature,
+        avoirIcon,        
+  }}
 })
 </script>
 
 <style scoped>
 ion-thumbnail {
-  --size: 200px;
+  --size: 180px;
 }
 ion-icon {
     color: white;
-    font-size: 200px;
+    font-size: 170px;
 }
 ion-content {
     --background: url(../assets/imgs/jour.jpeg) 0 0/100% 100% no-repeat;
@@ -161,13 +181,13 @@ ion-card {
     font-size: 14px;
 }
 #ville {
-    font-size: 30px;
+    font-size: 28px;
 }
 #degres {
-    font-size: 75px;
+    font-size: 60px;
 }
 #description {
-    font-size: 33px;
+    font-size: 30px;
 }
 #footer {
     font-size: 14px;
